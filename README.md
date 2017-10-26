@@ -36,5 +36,15 @@ The Architecture
 Our starting point was the Nvidia architecture, which we tweaked a little bit, by adding dropout layers and by changing some of the parameters. The result can be seen below: 
 
 
+Our model starts by cropping large areas of the images, which are more likely to add noise than information, and we then half the size of the image. We have 5 convolution layers and 5 fully connected ones, as well as 3 dropout layers that were evenly spaced.
+
+We use a generator to produce the batches we use for training. In the generator we augment the data by flipping all the images, and on top of that, we randomly modify each image, by either altering the hsv filter or by adding a shadow.
+
+The Adam optimizer with a MSE loss function was used to train our network. We were constantly tweaking the number and sizes of the layers, as well as the other hyperparameters, and testing on the track to see whether it was capable of completing a lap. Before we started training we had already gathered most of the data we used, but we added a couple laps of the second track towards the end, which helped the model (although they were not enough to get it to drive on the second track in autonomous mode).
+
+Result
+---
+
+We were able to train a network capable of driving around the first track at 30mph on the simulator. It is not robust yet to tackle the second track, but we plan to come back later with new ideas to see if we can get it to drive on the second one without using more data.
 
 
