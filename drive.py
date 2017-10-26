@@ -3,7 +3,6 @@ import base64
 from datetime import datetime
 import os
 import shutil
-
 import numpy as np
 import socketio
 import eventlet
@@ -11,16 +10,16 @@ import eventlet.wsgi
 from PIL import Image
 from flask import Flask
 from io import BytesIO
-
-from keras.models import load_model
-import h5py
 from keras import __version__ as keras_version
+from model import get_model
+import h5py
+os.environ["KERAS_BACKEND"] = "tensorflow"
+
 
 sio = socketio.Server()
 app = Flask(__name__)
 model = None
 prev_image_array = None
-
 
 class SimplePIController:
     def __init__(self, Kp, Ki):
@@ -44,7 +43,7 @@ class SimplePIController:
 
 
 controller = SimplePIController(0.1, 0.002)
-set_speed = 9
+set_speed = 30 
 controller.set_desired(set_speed)
 
 
@@ -61,7 +60,7 @@ def telemetry(sid, data):
         imgString = data["image"]
         image = Image.open(BytesIO(base64.b64decode(imgString)))
         image_array = np.asarray(image)
-        steering_angle = float(model.predict(image_array[None, :, :, :], batch_size=1))
+        steering_angle = 1.1*float(model.predict(image_array[None, :, :, :], batch_size=1))
 
         throttle = controller.update(float(speed))
 
@@ -119,7 +118,9 @@ if __name__ == '__main__':
         print('You are using Keras version ', keras_version,
               ', but the model was built using ', model_version)
 
-    model = load_model(args.model)
+    model = get_model()
+    model.load_weights(args.model)
+    #model = load_model(args.model)
 
     if args.image_folder != '':
         print("Creating image folder at {}".format(args.image_folder))
