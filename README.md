@@ -48,4 +48,6 @@ Result
 
 We were able to train a network capable of driving around the first track at 30mph on the simulator. It is not robust yet to tackle the second track, but we plan to come back later with new ideas to see if we can get it to drive on the second one without using more data.
 
+We have included a video of our model steering the car for one lap in track number 1. We have also included our modified version of drive.py and of the carnd environment so that the model might be ran on any machine.
+
 
