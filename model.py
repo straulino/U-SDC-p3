@@ -51,10 +51,10 @@ def balance_data(data):
 
     avg_samples_per_bin = len(v_steering)/num_bins
     hist, bins = np.histogram(v_steering, num_bins)
-    width = 0.7 * (bins[1] - bins[0])
-    center = (bins[:-1] + bins[1:]) / 2
-    plt.bar(center, hist, align='center', width=width)  
-    plt.savefig('before.png')  
+    #width = 0.7 * (bins[1] - bins[0])
+    #center = (bins[:-1] + bins[1:]) / 2
+    #plt.bar(center, hist, align='center', width=width)  
+    #plt.savefig('before.png')  
     #plt.show()
     
     prob_v = []
@@ -85,14 +85,14 @@ def balance_data(data):
         v_steering.append(float(line[3]))    
 
     v_steering = np.array(v_steering)
-    num_bins = 100
+    #num_bins = 100
 
-    avg_samples_per_bin = len(v_steering)/num_bins
-    hist, bins = np.histogram(v_steering, num_bins)
-    width = 0.7 * (bins[1] - bins[0])
-    center = (bins[:-1] + bins[1:]) / 2
-    plt.bar(center, hist, align='center', width=width)
-    plt.savefig('after.png')     
+    #avg_samples_per_bin = len(v_steering)/num_bins
+    #hist, bins = np.histogram(v_steering, num_bins)
+    #width = 0.7 * (bins[1] - bins[0])
+    #center = (bins[:-1] + bins[1:]) / 2
+    #plt.bar(center, hist, align='center', width=width)
+    #plt.savefig('after.png')     
     #plt.show()
 
     return data_balanced
@@ -180,8 +180,6 @@ def get_model():
 def main(_):
     data = get_data()
     data = balance_data(data)
-
-    return 
 
     random.shuffle(data)
     training_data = data[:int(0.8*len(data))]
