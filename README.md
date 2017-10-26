@@ -14,18 +14,27 @@ As we started this project, we consulted the relevant slack channel for it, wher
 * We started with a correction factor of +-0.20 for the side cameras.
 * In drive.py we included a steering multiplier of 1.1.
 
+The Data
+---
+Udacity provided us with a starting dataset for the project, of around 24k images. We added to it some 60k images, bringing the total to 86k data points. Below we can see an image from the first track (on the left) and from the second track (on the right).
+
+The majority of our data comes from the first track, we added a couple laps from the second one towards the end to help the model generalize, but we probably need to collect many more if we want it to become robust.
+
+![left](examples/center_2016_12_01_13_31_14_602.jpg)
+![left](examples/right_2017_10_26_12_18_47_124.jpg)
+
+One thing that was obvious from the beginning was that we would have many data points where the steering would be close to 0, and although we want to know when to drive straight, we do not want the model to overfit this scenario. Below we see the original distribution of our data set according to steering values.
+
+![left](examples/before.png)
+
+In order to improve the performance of our model, and also to speed up the training, we decided to randomly drop some of the data points closer to 0. To do so, we split our data in a 100 bins, and for every bin where we had more than 1.5 times the average number of data points, we randomly took a sample of roughly that size. The resulting distribution was:
+
+![left](examples/after.png)
+
 The Architecture
 ---
 Our starting point was the Nvidia architecture, which we tweaked a little bit, by adding dropout layers and by changing some of the parameters. The result can be seen below: 
 
 
-The Data
----
-Udacity provided us with a starting dataset for the project, of around 24k images. We added to it some 60k images, bringing the total to 86k data points. 
 
-![left](examples/center_2016_12_01_13_31_14_602.jpg)
-![left](examples/right_2017_10_26_12_18_47_124.jpg)
-
-![left](examples/before.png)
-![left](examples/after.png)
 
