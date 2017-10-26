@@ -35,6 +35,7 @@ The Architecture
 ---
 Our starting point was the Nvidia architecture, which we tweaked a little bit, by adding dropout layers and by changing some of the parameters. The result can be seen below: 
 
+![left](examples/model_arch.png)
 
 Our model starts by cropping large areas of the images, which are more likely to add noise than information, and we then half the size of the image. We have 5 convolution layers and 5 fully connected ones, as well as 3 dropout layers that were evenly spaced.
 
